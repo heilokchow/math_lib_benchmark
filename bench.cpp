@@ -4,15 +4,41 @@
 #include <random>
 #include <string>
 
-#define MODE 0
-// #define EIGEN_USE_MKL_ALL
-// #define EIGEN_NO_DEBUG
-// #define EIGEN_USE_BLAS
-// #define EIGEN_USE_LAPACKE
+#ifndef MODEL
+#define MODEL 1
+#endif
 
-// #include <Eigen/Dense>
-// #include <cblas.h>
+#if MODEL == 1 // MKL
+#define MODE 0
 #include <mkl.h>
+#endif
+
+#if MODEL == 2 // OPENBLAS
+#define MODE 0
+#include <cblas.h>
+#endif
+
+#if MODEL == 3 // EIGEN
+#define MODE 1
+#define EIGEN_NO_DEBUG
+#include <Eigen/Dense>
+#endif
+
+#if MODEL == 4 // EIGEN + MKL
+#define MODE 1
+#define EIGEN_USE_MKL_ALL
+#define EIGEN_NO_DEBUG
+#include <Eigen/Dense>
+#include <mkl.h>
+#endif
+
+#if MODEL == 5 // EIGEN + OPENBLAS
+#define MODE 1
+#define EIGEN_USE_BLAS
+#define EIGEN_NO_DEBUG
+#include <Eigen/Dense>
+#include <cblas.h>
+#endif
 
 void F_GEMM(double* const&, double* const&, double* const&, const int&, const int&);
 
@@ -24,12 +50,12 @@ int main(int argc, char** argv)
         exit(0);
     }
 
-	int n = std::stoi(argv[1]);
+    int n = std::stoi(argv[1]);
     int nrep = std::stoi(argv[2]);
 
-	double *x = new double[n*n];
-	double *y = new double[n*n];
-	double *z = new double[n*n];
+    double *x = new double[n*n];
+    double *y = new double[n*n];
+    double *z = new double[n*n];
     int p = 0;
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < n; j++) {
@@ -38,17 +64,16 @@ int main(int argc, char** argv)
             y[p] = 0.0;
             z[p] = 0.0;
         }
-    }
+    }   
 
     // Perform Martix Multiplication
     F_GEMM(x, y, z, n, nrep);
 
-
-	delete[] x;
-	delete[] y;
-	delete[] z;
-	std::cin.get();
-	return 0;
+    delete[] x;
+    delete[] y;
+    delete[] z;
+    std::cin.get();
+    return 0;
 }
 
 void F_GEMM(double* const& x, double* const& y, double* const& z, const int& n, const int& nrep) {
