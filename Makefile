@@ -11,23 +11,26 @@ TARGETS := a.out
 OBJECTS := bench.o
 CC := g++
 
+INC = $(EIGEN_INCDIR)
+
 ifndef MODEL
 MODEL = 1
 endif
 
 ifeq ($(MODEL), 1)
-INC = $(MKL_INCDIR)
+INC += $(MKL_INCDIR)
 LIB = $(MKL_LIB)
 else ifeq ($(MODEL), 2)
-INC = $(OPENBLAS_INCDIR)
+INC += $(OPENBLAS_INCDIR)
 LIB = $(OPENBLAS_LIB)
 else ifeq ($(MODEL), 3)
-INC = $(EIGEN_INCDIR)
+INC += $(OPENBLAS_INCDIR)
+LIB = $(OPENBLAS_LIB)
 else ifeq ($(MODEL), 4)
-INC = $(EIGEN_INCDIR) $(MKL_INCDIR)
+INC += $(MKL_INCDIR)
 LIB = $(MKL_LIB)
 else
-INC = $(EIGEN_INCDIR) $(OPENBLAS_INCDIR)
+INC += $(OPENBLAS_INCDIR)
 LIB = $(OPENBLAS_LIB)
 endif
 

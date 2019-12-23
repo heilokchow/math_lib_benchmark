@@ -1,2 +1,6 @@
 *.o
 *.out
+log
+*.txt
+err
+*.jpeg
