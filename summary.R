@@ -3,6 +3,9 @@ library("ggpubr")
 
 x <- read.csv("result.txt", sep = ",", header = FALSE)
 x <- as.data.frame(x)
+
+x <- x[which(x[,1]=="DPOTRF"),2:4]
+colnames(x) <- c("V1", "V2", "V3")
 x1 <- x[which(x[,2]==1000),]
 x1$V1 <- paste(x1$V1)
 x1$V2 <- paste(x1$V2)
