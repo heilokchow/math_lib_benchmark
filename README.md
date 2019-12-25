@@ -52,9 +52,43 @@ Then, the benchmark can be run by `./a.out <n> <nrep>`, where `n` is the dimensi
 
 Here, the benchmark is run on i5-8250u @ 3.2GHz. 4 cores are registered for parallizing purpose. The DGEMM subroutine is applied for the benchmark. The comparison results is ploted using `summary.R` and the result is shown below. 
 
-#### Multithreading Performance (8 threads)
+#### Multi-threaded Performance (8 threads)
 
-![Imgur](https://i.imgur.com/C1GSGMg.jpg)
+![Imgur](https://i.imgur.com/MoGCJHM.jpg)
+
+#### Single-threaded Performance
+
+![Imgur](https://i.imgur.com/fYSderW.jpg)
+
+### DGESV subroutine
+
+#### Multi-threaded Performance (8 threads)
+
+![Imgur](https://i.imgur.com/x0N7kZT.jpg)
+
+#### Single-threaded Performance
+
+![Imgur](https://i.imgur.com/mGhYWKM.jpg)
+
+### DPOTRF subroutine
+
+#### Multi-threaded Performance (8 threads)
+
+![Imgur](https://i.imgur.com/BBi4PsA.jpg)
+
+#### Single-threaded Performance
+
+![Imgur](https://i.imgur.com/8aAN2T9.jpg)
+
+### Comparison between MKL and OpenBLAS
+
+#### Multi-threaded Performance (8 threads)
+
+![Imgur](https://i.imgur.com/rQD7MOF.jpg)
+
+![Imgur](https://i.imgur.com/KsFsQQQ.jpg)
+
+![Imgur](https://i.imgur.com/KsFsQQQ.jpg)
 
 ## Conclusion
 From the result above, the MKL performs best on intel's KabyLake CPU. However, the result from OpenBLAS is quite close to MKL's performance. Also. OpenBLAS is designed to be optimized on different CPU architectures. Therefore, the performance might be in favour of OpenBLAS when running on Zen2 architecture. The performance of other subroutines such as matrix inversion and LU factorization on different kinds of architectures will be updated later. Also, as for Eigen library, the speed is similar to other libraries if the backends use OpenBLAS or MKL. Therefore, considering the fact that Eigen is much earier to use comparing to other libraries with only a little trade off on performance, Eigen might be the best linear algebra library when writing C++ codes for real applications.
