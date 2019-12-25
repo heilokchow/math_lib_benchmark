@@ -90,10 +90,14 @@ The DPOTRF subroutine does the Cholesky factorization. The Cholesky factorizatio
 
 From previous result, MKL and OpenBLAS perform best in most amount of scenarios. Therefore, we do a more general comparison between these two libraries. Since all these three subroutines are of O(n^3), y-axis is t^(1/3) where t is measured by seconds. The result below shows that both two methods have similar performance and MKL is slightly better than OpenBLAS. However, such small advantage for MKL is catched up or even surpassed by OpenBLAS when n is large. Therefore, for most high dimensional matrix operations where efficiency is more important, there is little difference between these two libraries on intel's CPU. If the program is designed for more general platforms such as AMD's Zen architechure, OpenBLAS will be the best choice. Also, if the computation time is not the key issue, Eigen is much more user friendly for both code writing and error handling.
 
-#### Multi-threaded Performance (8 threads)
+#### DGEMM (8 threads)
 
 ![Imgur](https://i.imgur.com/rQD7MOF.jpg)
 
+#### DGESV (8 threads)
+
 ![Imgur](https://i.imgur.com/KsFsQQQ.jpg)
+
+#### DPOTRF (8 threads)
 
 ![Imgur](https://i.imgur.com/KsFsQQQ.jpg)
