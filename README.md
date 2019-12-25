@@ -100,4 +100,4 @@ From previous result, MKL and OpenBLAS perform best in most amount of scenarios.
 
 #### DPOTRF (8 threads)
 
-![Imgur](https://i.imgur.com/KsFsQQQ.jpg)
+![Imgur](https://i.imgur.com/lydv9CQ.jpg)
