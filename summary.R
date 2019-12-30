@@ -1,6 +1,7 @@
 library("ggplot2")
 library("ggpubr")
 
+setwd("C:/Users/micha/Documents/Course/c++/20181208 matrix_multi/matrix_multi/matrix_multi/math_lib_benchmark")
 x <- read.csv("result.txt", sep = ",", header = FALSE)
 x <- as.data.frame(x)
 x <- x[which(x[,1]=="DGEMM"),2:4]
@@ -29,5 +30,5 @@ ggarrange(Q[[1]], Q[[2]], Q[[3]], Q[[4]], ncol=4 , nrow=1, common.legend = TRUE,
 
 x[, 1] <- sapply(x[, 1], function(x) {ifelse(x==1, "MKL", "OpenBLAS")})
 x$V3 <- x$V3^(1/3)
-q <- ggplot(x, aes(V2, V3)) + geom_point(aes(colour = V1)) + geom_line(aes(colour = V1)) + xlab("dimension") + ylab("t^(1/3) (s)") +
-  theme(legend.title = element_blank()) + scale_fill_discrete(labels = c("MKL", "OpenBLAS"))
+q <- ggplot(x, aes(V2, V3)) + geom_point(aes(colour = V1)) + geom_line(aes(colour = V1)) + xlab("p (dimension)") + ylab("t^(1/3) (s)") +
+  theme(legend.title = element_blank())

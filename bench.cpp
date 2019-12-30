@@ -28,6 +28,7 @@
 #if MODEL == 3 // EIGEN
 #define MODE 1
 #define EIGEN_NO_DEBUG
+#define EIGEN_DONT_PARALLELIZE
 #include <cblas.h>
 #include <lapacke.h>
 #endif
@@ -36,6 +37,7 @@
 #define MODE 1
 #define EIGEN_USE_MKL_ALL
 #define EIGEN_NO_DEBUG
+#define EIGEN_DONT_PARALLELIZE
 #include <mkl.h>
 #endif
 
@@ -44,6 +46,7 @@
 #define EIGEN_USE_BLAS
 #define EIGEN_USE_LAPACKE
 #define EIGEN_NO_DEBUG
+#define EIGEN_DONT_PARALLELIZE
 #include <cblas.h>
 #include <lapacke.h>
 #endif
@@ -191,7 +194,7 @@ void F_GESV(double* const& v, double* const& y, double* const& b, const int& n, 
                 C(i) = 0;
             }
             t0 = std::chrono::system_clock::now();
-            C = X.ldlt().solve(Y);
+            C = X.llt().solve(Y);
             t1 = std::chrono::system_clock::now();
         }
         else {
@@ -325,7 +328,7 @@ void check(const int& n) {
     B = Y * A;
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, 1, n, 1.0, y, n, a, 1, 0.0, b, 1);
     
-    A = Y.ldlt().solve(B);
+    A = Y.llt().solve(B);
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < n; j++) {
             y3[i * n + j] = y[i * n + j];
