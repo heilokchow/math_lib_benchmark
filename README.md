@@ -1,5 +1,14 @@
 # MKL v.s. OpenBLAS v.s. Eigen
 
+## List of Contents
+
+* Installation of required packages and the benchmarking tool
+* Linear algebra operations for different libraries in c++. MKL v.s. OpenBLAS v.s. Eigen
+* Linear algebra operations for different languages. c++ (MKL) v.s. Matlab (MKL) v.s. R (LAPACK)
+* Linear algebra operations for different architechures. Intel KabyLake v.s. AMD Zen+
+* Analysis of the numercial errors
+* Conclusion and suggestion
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -46,13 +55,13 @@ By invoking `make MODEL=x`, the benchmark can be done for different libraries.
 
 Then, the benchmark can be run by `./a.out <n> <nrep>`, where `n` is the dimension of the matrix and `nrep` is the number of replications. 
 
-## Benchmarking (i5-8250u @ 3.2GHz)
+## Benchmarking for different libraries (i5-8250u @ 3.2GHz)
 
 Here, the benchmark is run on i5-8250u @ 3.2GHz. 4 cores are registered for parallelizing purpose. The comparison results is ploted using `summary.R` and the results are shown below. The y-axis is the real time (not cpu time) spent and x-axis is the dimension of the matrix. Most paper uses the term "GFlops" to measure the performance of different implementations or algorithms. However, in real-life applications from other fields such as Physics and Statistics, the actual time spent is more crucial. Therefore, the elapsed time is applied for benchmarking. 
 
 ### DGEMM subroutine
 
-The DGEMM subroutine from BLAS library which calculates the general matrix and matrix product. It is widely used in all kinds of scientific computation and the efficiency of matrix multiplication is of vital importance. The following results reveals that other than the pure Eigen library, other libaries perform similarly. Compare to single threaded program, multi-threading can have a 2X boost on the comptation.
+The DGEMM subroutine from BLAS library which calculates the general matrix and matrix product. It is widely used in all kinds of scientific computation and the efficiency of matrix multiplication is of vital importance. The following results reveals that other than the pure Eigen library, other libaries perform similarly. Compare to single threaded program, multi-threading can have a 2X boost on the compuation.
 
 #### Multi-threaded Performance (8 threads)
 
