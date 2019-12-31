@@ -61,19 +61,26 @@ Here, the benchmark is run on i5-8250u @ 3.2GHz. Only single threaded performanc
 
 ### DGEMM subroutine
 
-The DGEMM subroutine from BLAS library which calculates the general matrix and matrix product. It is widely used in all kinds of scientific computation and the efficiency of matrix multiplication is of vital importance. The following results reveals that other than the pure Eigen library, other libaries perform similarly.
+The DGEMM subroutine from BLAS library which calculates the general matrix and matrix product. It is widely used in all kinds of scientific computation and the efficiency of matrix multiplication is of vital importance. Both five methods have similar efficiency.
 
 ![Imgur](https://i.imgur.com/DKLtvFT.jpg)
 
 ### DGESV subroutine
 
-The DGESV subroutine solves the linear equations which is widly used in mathematical optimization problems. Since Eigen doesn't use the LAPACK's DGESV subroutine as its backend, the performance of Eigen+MKL and Eigen+OpenBLAS is not quite good and it is similar to the pure Eigen library's result.
+The DGESV subroutine solves the linear equations which is widly used in mathematical optimization problems. Here, Eigen library performs better than MKL and OpenBLAS.
 
 ![Imgur](https://i.imgur.com/MdRJkpR.jpg)
 
 ### DPOTRF subroutine
 
-The DPOTRF subroutine does the Cholesky factorization. The Cholesky factorization is the essential part for positive definite matrix's inversion. The covariance matricies from statistical analysis belongs to such matrix class. The result of Cholesky factorization is similar to the result of matrix multiplication where 4 methods which applies LAPACK subroutines perform similar. 
+The DPOTRF subroutine does the Cholesky factorization. The Cholesky factorization is the essential part for positive definite matrix's inversion. The covariance matricies from statistical analysis belongs to such matrix class. Both five methods have similar efficiency.
 
 ![Imgur](https://i.imgur.com/QltmWGA.jpg)
 
+## Benchmarking for different languages (i5-8250u @ 3.2GHz)
+
+Here, we still consider the single threaded performance when running benchmarks. The benchmarking code is contended in `summary.R` and `matlab_r2019.mlx`. Note that the default run on matlab uses multi-threaded MKL library. To force matlab using single thread, parrallel tool box could be installed and one worker thread should be used for benchmarking run. The x-axis is the dimension of the matrix and the y-axis is `t^(1/3)` since all subroutines have an `O(n^3)` computation time. For example, from the figure above, the actual elapsed time for R to perform a 2000 x 2000 matrix multiplication is 1.55^3 which is around 4 seconds.
+
+![Imgur](https://i.imgur.com/ZSdCmRd.jpg)
+
+ Matlab and Eigen performs similar and is about 10-50 times faster than R(base) for large matrix related operations. Note that the default BLAS and LAPACK library is used for R benchmarking. To boost the matrix manipulations, RcppEigen packages or relinking the library to OpenBLAS could be considerred. But both two methods are not easy to be implemented, the previous one still requires coding in c++ and the later one requires a reinstallation of R which is inapplicable on most HPC servers. Therefore, R may not be a suitable choice for big data manipulation if such linear operations is needed.
