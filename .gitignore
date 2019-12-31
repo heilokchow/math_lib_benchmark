@@ -5,3 +5,4 @@ log
 err
 *.jpeg
 *.xlsx
+*.RData

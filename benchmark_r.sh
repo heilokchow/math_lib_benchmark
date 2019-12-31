@@ -10,9 +10,9 @@ then
 	make clean
 fi
 
-for x in 1 2
+for x in 3
 do
-	for y in 1000 1500 2250 3500 5000 7000 10000 13000 16000
+	for y in 50 100 400 800 1200 1600 2000
 	do
 		make MODEL=$x
 		./a.out $y 5 >> log 2>&1
