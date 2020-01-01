@@ -84,3 +84,13 @@ Here, we still consider the single threaded performance when running benchmarks.
 ![Imgur](https://i.imgur.com/ZSdCmRd.jpg)
 
  Matlab and Eigen performs similar and are about 10-50 times faster than R(base) for large matrix related operations. Note that the default BLAS and LAPACK library is used for R. To boost the matrix manipulations, RcppEigen packages or relinking the library to OpenBLAS could be considerred. But both two methods are not easy to be implemented, the previous one still requires coding in c++ and the later one requires a reinstallation of R which is inapplicable on most HPC servers. Therefore, R may not be a suitable choice for big data manipulation if such linear operations is needed.
+
+## Benchmarking for different architectures 
+
+### i5-8250u @ 3.2GHz v.s. r7-2700x @ 4.0GHz
+
+Due to the advantages of Eigen from benchmark results above (efficient and portable), the Eigen library is adopt for benchmarking on different architectures. Here, Intel's KabyLake is compared against AMD's Zen+. Since the actual real application's performance in researches is of vital important, both computers are run on auto boost with different speeds. The single thread performance is recorded below. y-axis is the actual time (in seconds) takes, the lower, the better.
+
+![Imgur](https://i.imgur.com/jrKWfmI.jpg)
+
+Running at a lower clock, Intel's cpu is 10-25% times faster than AMD's cpu when running Eigen libraries. Therefore, Zen or Zen+ architechture is not a good choice for double precision floating point computation which is common in most researches. If dense matrix operations is an essentail part of your program, Intel's most architectures or Zen2 architecture is more suitable for these tasks.
