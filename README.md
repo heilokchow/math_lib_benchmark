@@ -1,5 +1,4 @@
-# Efficient use of linear algebra library for high performance computing
-
+# Efficient use of linear algebra library for simulations
 ## Background and Introduction
 
 I'm working on researches in the field of Statistics. Modern days, because of the evolve of applications with big data, the statistical models have to cater the problems with more and more covariates included. Many people use R to build and test their model. However, running simulations with a large amount of covariates may take several weeks or months. Therefore, we want to know whether the simple codes using base R is appropriate for such projects. If not, we want to code in an efficient way so that we can spend more time on the theory or model itself rather than switching between servers and test the model through intensive but less efficient simulations. Since many people who work in this field haven't studied in computer science before, the following article will guide you to install the math library accordingly and the codes can be served as a basic benchmarking tool to test whether you have done the correct configuration so that when you code your own project using C++ and use such libraries, it will run in the most efficient way.
